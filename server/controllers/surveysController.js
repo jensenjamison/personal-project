@@ -6,7 +6,7 @@ module.exports = {
 // fire our getAll sql statement
 // return (res)  the results from firing our sql statement
 
-using a sql statement, get and  return all surveys
+// using a sql statement, get and  return all surveys
 
 
 

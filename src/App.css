@@ -5,10 +5,11 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-image: url("https://storage.needpix.com/rsynced_images/background-2225785_1280.png")
 }
 
 nav button {
-    background-color: black;
+    background-color: rgb(201, 120, 0);
     color: white;
     font-family: 'Lobster', cursive;
     font-size: 2.5vw;

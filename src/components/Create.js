@@ -11,6 +11,7 @@ export default class Create extends Component{
             questions:[],
             numberOfQuestions: 1            
         }
+
     }
     handleNumberOfQuestions = e => {
         if (e.target.value > 10) return;
@@ -23,6 +24,8 @@ export default class Create extends Component{
             <div className="create-page">
                 <button className="create-survey-button">Create Survey</button>
                 
+                <input placeholder="Title Here" ></input>
+
                 <input 
                     placeholder="Number of Questions 1-10"
                     value={this.state.numberOfQuestions}

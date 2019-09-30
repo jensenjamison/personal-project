@@ -14,7 +14,7 @@ export default class Create extends Component{
 
     }
     handleNumberOfQuestions = e => {
-        if (e.target.value > 10) return;
+        if (e.target.value > 5) return;
         this.setState({
             numberOfQuestions: +e.target.value
         })
@@ -27,11 +27,11 @@ export default class Create extends Component{
                 <input placeholder="Title Here" ></input>
 
                 <input 
-                    placeholder="Number of Questions 1-10"
+                    placeholder="Number of Questions 1-5"
                     value={this.state.numberOfQuestions}
                     onChange={this.handleNumberOfQuestions}
                     type='number' 
-                    max='10'
+                    max='5'
                 />
 
                 {

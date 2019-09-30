@@ -5,7 +5,11 @@ export default class Question extends React.Component {
         super();
         this.state = {
             question: "",
-            options: []
+            option1: {},
+            option2: {},
+            option3: {},
+            option4: {}
+
         }
     }
     
@@ -16,10 +20,10 @@ export default class Question extends React.Component {
                 
             <h1>Question Component</h1>
                 <input placeholder="Question Here" ></input>
-                <input placeholder="answer 1"></input>
-                <input placeholder="answer 2"></input>
-                <input placeholder="answer 3"></input>
-                <input placeholder="answer 4"></input>
+                <input placeholder="option 1" name="option1"></input>
+                <input placeholder="option 2" name="option2"></input>
+                <input placeholder="option 3" name="option3"></input>
+                <input placeholder="option 4" name="option4"></input>
 
             </div>
         )

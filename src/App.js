@@ -1,20 +1,14 @@
 import React from 'react';
 import './App.css';
-import { HashRouter, Link } from "react-router-dom";
+import { HashRouter} from "react-router-dom";
 import routes from "./routes"
-
+import Header from "./components/Header"
 
 function App() {
   return (
     <HashRouter>
       <div>
-        <nav className="nav">
-          <Link to="/"><button>Home</button></Link>
-          <div className="nav-right">
-            <Link to="/create"><button>Create</button></Link>
-            <Link to="/surveys"><button>Surveys</button></Link>
-          </div>
-        </nav>
+        <Header />
         {routes}
       </div>
     </HashRouter>

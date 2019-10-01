@@ -4,7 +4,10 @@ module.exports = {
     getSession: (req, res) => {
         if (req.session.user) {
             res.status(200).json(req.session.user)
+        } else {
+            res.sendStatus(200)
         }
+        
     },
     register: async (req, res) => {
         const { email, first_name, last_name, password } = req.body
@@ -60,6 +63,9 @@ module.exports = {
         }
     },
     logout: (req, res) => {
-
+        console.log("hit")
+        console.log (req.session)
+        req.session.destroy();
+        res.sendStatus(200)
     }
 }

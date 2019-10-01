@@ -7,9 +7,17 @@ const initialState = {
     email: ""
 };
 
+const GET_SESSION="GET_SESSION"
 const REGISTER = "REGISTER";
 const LOG_IN_USER = "LOG_IN_USER";
 const LOG_OUT_USER = "LOG_OUT_USER";
+
+export function getSession(){
+    return{
+        type: GET_SESSION,
+        payload: Axios.get("/auth/session")
+    }
+}
 
 export function registerUser(data) {
     return {
@@ -36,6 +44,12 @@ export default function reducer(state = initialState, action) {
     const {type, payload} = action;
 
     switch(type) {
+        case `${GET_SESSION}_FULFILLED`:
+            return {
+                first_name: payload.data.first_name,
+                last_name: payload.data.last_name,
+                email: payload.data.email
+            };
         case `${REGISTER}_FULFILLED`:
             return {
                 first_name: payload.data.first_name,
@@ -49,8 +63,11 @@ export default function reducer(state = initialState, action) {
                 email: payload.data.email
             };
         case `${LOG_OUT_USER}_FULFILLED`:
+            console.log("hit")
             return {
-                ...state
+                first_name:"",
+                last_name:"",
+                email:""
             }
         default: return state;
 

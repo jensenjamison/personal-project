@@ -11,15 +11,21 @@ export default class Create extends Component{
             questions:[],
             numberOfQuestions: 1            
         }
-
+        this.handleAddQuestion=this.handleAddQuestion.bind(this)
     }
     handleNumberOfQuestions = e => {
         if (e.target.value > 5) return;
         this.setState({
             numberOfQuestions: +e.target.value
+        })        
+    }
+    handleAddQuestion(question){
+        this.setState({
+            questions: [...this.state.questions, question]
         })
     }
     render(){
+        console.log(this.state.questions)
         return(
             <div className="create-page">
                 <button className="create-survey-button">Create Survey</button>
@@ -35,7 +41,7 @@ export default class Create extends Component{
                 />
 
                 {
-                    Array(this.state.numberOfQuestions).fill(<Question />)
+                    Array(this.state.numberOfQuestions).fill(<Question handleAddQuestion={this.handleAddQuestion} />)
                 }
 
 

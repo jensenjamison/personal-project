@@ -20,6 +20,6 @@ nav button {
 .nav-right {
     display: flex;
     justify-content: space-between;
-    width: 20vw;
+    width: 25vw;
     height: auto;
 }

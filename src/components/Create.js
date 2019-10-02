@@ -3,7 +3,6 @@ import "./Create.css"
 import {connect} from "react-redux"
 import Axios from "axios"
 import {addSurvey} from "../redux/reducers/surveysReducer"
-import { create } from "domain";
 
 class Create extends Component {
     constructor() {

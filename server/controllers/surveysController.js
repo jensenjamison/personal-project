@@ -4,13 +4,15 @@ module.exports = {
     getAll: async (req, res) => {
         const db = req.app.get('db');  // bring in db
         
-            // fire our getAll sql statement
-            // return (res)  the results from firing our sql statement
+        const surveys = await db.surveys.getAll()
+        res.status(200).json(surveys)
+    },
+    getUserSurveys: async (req, res) => {
+        const {user_id} = req.session.user;
+        const db = req.app.get('db');
 
-            // using a sql statement, get and  return all surveys
-
-
-
+        const userSurveys = await db.surveys.getUserSurveys(user_id)
+        res.status(200).json(userSurveys)
     },
     getOne: (req, res) => {
 
@@ -21,8 +23,6 @@ module.exports = {
         const {title, questions} = req.body;
         const {user_id} = req.session.user;
         const db = req.app.get("db");
-
-        
 
         const addTitleRes = await db.surveys.addTitle(user_id, title);
         const survey_id = addTitleRes[0].survey_id;

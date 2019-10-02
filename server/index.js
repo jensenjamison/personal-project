@@ -34,7 +34,7 @@ app.post("/auth/logout", authController.logout);
 
 // survey endpoints
 
-app.get("/api/getAll", surveysController.getAll);
+app.get("/api/getAll/:user_id", surveysController.getAll);
 app.get("/api/getOne/:survey_id", surveysController.getOne); //param
 app.post("/api/survey", surveysController.addSurvey);   //body
 app.delete("/api/survey/:survey_id", surveysController.deleteSurvey);  //param

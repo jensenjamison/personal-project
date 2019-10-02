@@ -18,22 +18,37 @@ module.exports = {
     addSurvey: async (req, res) => {
         console.log(req.body)
 
-        const {question, options} = req.body;
+        const {title, questions} = req.body;
         const {user_id} = req.session.user;
         const db = req.app.get("db");
 
-        const addTitleRes = await db.surveys.addTitle(user_id, question);
+        
+
+        const addTitleRes = await db.surveys.addTitle(user_id, title);
         const survey_id = addTitleRes[0].survey_id;
 
-        for (let i = options.length - 1; i >= 0; i--){
-            if (options[i] === "" ) options.splice(i, 1)
+        try {
+            for (let i = 0; i < questions.length; i++){
+                const addQuestionRes = await db.surveys.addQuestion(survey_id, questions[i].question);
+                const question_id = addQuestionRes[0].question_id;
+    
+                for (let j = questions[i].options.length - 1; j >= 0; j--){
+                    if (questions[i].options[j] === "" ) questions[i].options.splice(j, 1)
+                }
+    
+                for (let k = 0; k < questions[i].options.length; k++){
+                    await db.surveys.addOptions(question_id, questions[i].options[k]) 
+                }
+            }
+        } catch (err) {
+            console.log(err)
+            res.sendStatus(500)
         }
 
-        for (let i = 0; i < options.length; i++){
-            await db.surveys.addOptions(survey_id, options[i]) 
-        }
 
-        const allSurveys = await db.surveys.getAll()
+
+
+        // const allSurveys = await db.surveys.getAll()
 
 
         res.sendStatus(200)

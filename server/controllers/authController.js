@@ -55,7 +55,7 @@ module.exports = {
             } else {
 
                 req.session.user = {
-
+                    user_id: foundUser[0].user_id,
                     email: foundUser[0].email,
                     first_name: foundUser[0].first_name,
                     last_name: foundUser[0].last_name

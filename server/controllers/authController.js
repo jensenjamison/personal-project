@@ -24,6 +24,7 @@ module.exports = {
 
             const newUser = await db.auth.registerUser(email, first_name, last_name, hash)
             req.session.user = {
+                user_id: newUser[0].user_id,
                 email: newUser[0].email,
                 first_name: newUser[0].first_name,
                 last_name: newUser[0].last_name
@@ -54,6 +55,7 @@ module.exports = {
             } else {
 
                 req.session.user = {
+
                     email: foundUser[0].email,
                     first_name: foundUser[0].first_name,
                     last_name: foundUser[0].last_name

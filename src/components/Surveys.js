@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {updateAllSurveys} from "../redux/reducers/surveysReducer"
 import {connect} from "react-redux"
+import {Link} from "react-router-dom"
 
 class Surveys extends Component{
     constructor(){
@@ -19,7 +20,9 @@ class Surveys extends Component{
         const allSurveysMapped = allSurveys.map((survey, index) => {
             return (
                 <div key={index}>
-                    <h2>{survey.survey_name}</h2>
+                    <Link to={`/surveys/${survey.survey_id}`}>
+                        <h2>{survey.survey_name}</h2>
+                    </Link>
                 </div>
             )
         })

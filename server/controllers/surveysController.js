@@ -14,8 +14,14 @@ module.exports = {
         const userSurveys = await db.surveys.getUserSurveys(user_id)
         res.status(200).json(userSurveys)
     },
-    getOne: (req, res) => {
+    getOne: async (req, res) => {
+        const survey_id = +req.params.survey_id;
+        const db = req.app.get("db");
 
+        const getOneRes = await db.surveys.getOne(survey_id)
+        const survey = getOneRes[0]
+
+        res.status(200).json(survey)
     },
     addSurvey: async (req, res) => {
         console.log(req.body)
@@ -53,7 +59,12 @@ module.exports = {
 
         res.sendStatus(200)
     },
-    deleteSurvey: (req, res) => {
+    setInactive: async (req, res) => {
+        const {user_id} = req.session.user;
+        const survey_id = +req.params.survey_id;
+        const db = req.app.get('db'); 
 
+        const updatedSurveys = await db.surveys.setInactive(user_id, survey_id)
+        res.status(200).json(updatedSurveys)
     }
 }

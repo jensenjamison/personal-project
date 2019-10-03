@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateUserSurveys } from "../redux/reducers/surveysReducer"
+import { updateUserSurveys, deleteSurvey } from "../redux/reducers/surveysReducer"
+
 
 class Home extends Component {
     constructor() {
@@ -20,6 +21,7 @@ class Home extends Component {
             return (
                 <div key={index}>
                     <h2>{survey.survey_name}</h2>
+                    <button onClick={() => this.props.deleteSurvey(survey.survey_id)}>Delete</button>
                 </div>
             )
         })
@@ -40,4 +42,4 @@ const mapStateToProps = reduxState => {
     }
 }
 
-export default connect(mapStateToProps, { updateUserSurveys })(Home)
+export default connect(mapStateToProps, { updateUserSurveys, deleteSurvey })(Home)

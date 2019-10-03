@@ -1,5 +1,5 @@
 SELECT * FROM survey
-WHERE user_id = $1;
+WHERE user_id = $1 AND survey_status = 'active';
 
 -- SELECT s.survey_id, s.survey_name, q.question_id, q.question, o.option_id, o.option FROM survey s
 -- INNER JOIN question q ON s.survey_id = q.survey_id

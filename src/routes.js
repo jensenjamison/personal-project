@@ -5,11 +5,14 @@ import Surveys from "./components/Surveys";
 import Create from "./components/Create";
 import Register from  "./components/Register";
 import LoginUser from "./components/LoginUser";
+import Survey from "./components/Survey";
+
 
 export default(
     <Switch>
         <Route exact path="/" component={Home}></Route>
         <Route path="/create" component={Create}></Route>
+        <Route path="/surveys/:survey_id" component={Survey}></Route>
         <Route path="/surveys" component={Surveys}></Route>
         <Route path="/register" component={Register}></Route>
         <Route path="/login" component={LoginUser}></Route>

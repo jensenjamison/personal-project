@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import "./Header.css"
 import { connect } from "react-redux";
 import { logOutUser, getSession } from "../redux/reducers/userReducer"
+import { clearSurveyData } from "../redux/reducers/surveysReducer"
 
 
 class Header extends React.Component {
@@ -11,15 +12,22 @@ class Header extends React.Component {
         this.props.getSession()
     }
 
+    logOutUser=() => {
+        this.props.logOutUser().then(() => this.props.clearSurveyData())
+    }
+
     render() {
         return (
             <nav className="nav">
-                <Link to="/"><button>Home</button></Link>
+                {
+                    this.props.first_name ? <Link to="/"><button>Home</button></Link> : null
+                }
+
                 {this.props.first_name ?
                     <div className="nav-right">
                         <Link to="/create"><button>Create</button></Link>
                         <Link to="/surveys"><button>Surveys</button></Link>
-                        <Link to="/login"><button onClick={this.props.logOutUser} >Log Out</button></Link>
+                        <Link to="/login"><button onClick={this.logOutUser} >Log Out</button></Link>
                     </div>
                     :
                     <div className="nav-right">
@@ -39,4 +47,4 @@ const mapStateToProps = reduxState => {
     }
 }
 
-export default connect(mapStateToProps, { logOutUser, getSession })(Header)
+export default connect(mapStateToProps, { logOutUser, getSession, clearSurveyData })(Header)

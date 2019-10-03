@@ -21,7 +21,7 @@ module.exports = {
         const getOneRes = await db.surveys.getOne(survey_id)
         const survey = getOneRes[0]
 
-        res.status(200).json(survey)
+        res.status(200).json(getOneRes)
     },
     addSurvey: async (req, res) => {
         console.log(req.body)

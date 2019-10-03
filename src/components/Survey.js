@@ -6,7 +6,7 @@ class Survey extends Component {
     constructor() {
         super();
         this.state = {
-
+            radioAnswers: []
         }
     }
     componentDidMount() {
@@ -21,47 +21,70 @@ class Survey extends Component {
                 mySurvey.push({
                     question_id: val.question_id,
                     question: val.question,
-                    options: [val.option]
+                    options: [{id: val.option_id, text: val.option}]
                 })
             } else {
-                mySurvey[index].options.push(val.option);
+                mySurvey[index].options.push({id: val.option_id, text: val.option});
             }
         })
         return mySurvey
     }
 
+    handleRadio(question_id, option_id) { // need to somehow dynamically render a holder in state for our radio buttons to work properly
+        const newRadioAnswers = [...this.state.radioAnswers];
+        let foundAnswer = newRadioAnswers.findIndex((el, i) => {
+
+
+
+            
+        })
+
+        this.setState({
+            [question_id]: []
+        });
+    }
+
+
     render() {
 
         const {survey} = this.props
-        console.log(survey)
-        if(Array.isArray(survey)) {
-            let survey2 = this.makeSurvey(survey);
-            console.log(survey2)
-        }
-
-        // if (survey.length > 0) {
-
-
-
-        // }
+        let surveyQuestionsMapped = 'Loading...';
         
-        // const questionsFiltered = survey.length > 0 && survey.filter((item, i, arr) => arr.indexOf(item.question === survey.indexOf(item)))
+        if(Array.isArray(survey) && survey.length > 0) {
+            let surveyFormatted = this.makeSurvey(survey);
+            console.log(surveyFormatted)
+        
 
-        // const questionsMapped = ((item, i) => {
+            surveyQuestionsMapped = surveyFormatted.map((question, i) => {
 
-        //     return (
-        //         <div>
-        //             <h1></h1>
+                let optionsMapped = question.options.map((option,  i) => {
 
-        //         </div>
-        //     )
-        // })
-        // console.log(questionsFiltered)
+                    return (
+                        <div>
+                            <input 
+                                type='radio' 
+                                onChange={() => this.handleRadio(question.question_id, option.id)}
+                                value={option.id} 
+                            />{option.text}
+                        </div>
+                    );
+                })
+
+                return (
+                    <div>
+                        <h4>{question.question}</h4>
+                        {optionsMapped}
+                    </div>
+                );
+            })
+        }
 
 
         return (
             <div>
-                check yo console
+                <h1>{this.props.location.state.name}</h1>
+                {surveyQuestionsMapped}
+                <button>Submit</button>
             </div>
         )
     }

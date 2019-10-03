@@ -18,9 +18,15 @@ class Surveys extends Component{
         const {allSurveys} = this.props;
 
         const allSurveysMapped = allSurveys.map((survey, index) => {
+            console.log(survey)
             return (
                 <div key={index}>
-                    <Link to={`/surveys/${survey.survey_id}`}>
+                    <Link to={{
+                        pathname: `/surveys/${survey.survey_id}`,
+                        state: {
+                            name: `${survey.survey_name}`
+                        }
+                    }}>
                         <h2>{survey.survey_name}</h2>
                     </Link>
                 </div>

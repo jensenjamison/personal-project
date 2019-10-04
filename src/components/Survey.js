@@ -8,11 +8,14 @@ class Survey extends Component {
     constructor() {
         super();
         this.state = {
+            survey_id: null,
             radioAnswers: []
         }
         this.handleRadio = this.handleRadio.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
     componentDidMount() {
+        this.setState({survey_id: +this.props.match.params.survey_id})
         this.props.getOne(this.props.match.params.survey_id)
     }
 
@@ -72,7 +75,7 @@ class Survey extends Component {
     }
 
     handleSubmit(){
-        // this.props.addCompletedSurvey()
+        this.props.addCompletedSurvey(this.state)
     }
 
     render() {
@@ -121,7 +124,7 @@ class Survey extends Component {
             <div>
                 <h1>{this.props.location.state.name}</h1>
                 {surveyQuestionsMapped}
-                <button>Submit</button>
+                <button onClick={this.handleSubmit}>Submit</button>
             </div>
         )
     }

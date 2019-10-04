@@ -7,7 +7,7 @@ module.exports = {
         } else {
             res.sendStatus(200)
         }
-        
+
     },
     register: async (req, res) => {
         const { email, first_name, last_name, password } = req.body
@@ -33,8 +33,45 @@ module.exports = {
             res.status(200).json(req.session.user)
         }
     },
-    editUser: (req, res) => {
+    editUser: async (req, res) => {
+        const { email, first_name, last_name, password } = req.body
+        const { user_id } = req.session.user;
+        const db = req.app.get("db")
 
+        // handle email
+        if (email !== req.session.user.email) {
+            const foundUser = await db.auth.checkForUser(email);
+
+            if (foundUser[0]) {
+                return res.status(409).json("Email Taken")
+            }
+        }
+
+        // handle password
+        if (password !== '') {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(password, salt)
+            const updatedUser = await db.auth.updateUserWithNewPW(user_id, email, first_name, last_name, hash)
+
+            req.session.user = {
+                user_id: updatedUser[0].user_id,
+                email: updatedUser[0].email,
+                first_name: updatedUser[0].first_name,
+                last_name: updatedUser[0].last_name
+            }
+            return res.status(200).json(req.session.user)
+        } else {
+            const updatedUser = await db.auth.updateUserWithoutNewPW(user_id, email, first_name, last_name)
+
+            req.session.user = {
+                user_id: updatedUser[0].user_id,
+                email: updatedUser[0].email,
+                first_name: updatedUser[0].first_name,
+                last_name: updatedUser[0].last_name
+            }
+            return res.status(200).json(req.session.user)
+        }
+        res.status(500).json("Something went wrong :(")
     },
     login: async (req, res) => {
         const { email, password } = req.body
@@ -43,14 +80,14 @@ module.exports = {
         const foundUser = await db.auth.checkForUser(email);
 
         if (!foundUser[0]) {
-            res.status(403).json("Email or Password Incorrect")
+            res.status(403).json({ message: "Email or Password Incorrect" })
 
         } else {
 
             const isMatch = bcrypt.compareSync(password, foundUser[0].hash)
 
             if (!isMatch) {
-                res.status(403).json("Email or Password incorrect")
+                res.status(403).json({ message: "Email or Password Incorrect" })
 
             } else {
 

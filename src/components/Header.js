@@ -27,6 +27,7 @@ class Header extends React.Component {
                     <div className="nav-right">
                         <Link to="/create"><button>Create</button></Link>
                         <Link to="/surveys"><button>Surveys</button></Link>
+                        <Link to="/edit"><button>Edit Profile</button></Link>
                         <Link to="/login"><button onClick={this.logOutUser} >Log Out</button></Link>
                     </div>
                     :

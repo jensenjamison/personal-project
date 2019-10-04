@@ -3,12 +3,12 @@
 module.exports = {
     getAll: async (req, res) => {
         const db = req.app.get('db');  // bring in db
-        
+
         const surveys = await db.surveys.getAll()
         res.status(200).json(surveys)
     },
     getUserSurveys: async (req, res) => {
-        const {user_id} = req.session.user;
+        const { user_id } = req.session.user;
         const db = req.app.get('db');
 
         const userSurveys = await db.surveys.getUserSurveys(user_id)
@@ -26,24 +26,24 @@ module.exports = {
     addNewSurvey: async (req, res) => {
         console.log(req.body)
 
-        const {title, questions} = req.body;
-        const {user_id} = req.session.user;
+        const { title, questions } = req.body;
+        const { user_id } = req.session.user;
         const db = req.app.get("db");
 
         const addTitleRes = await db.surveys.addTitle(user_id, title);
         const survey_id = addTitleRes[0].survey_id;
 
         try {
-            for (let i = 0; i < questions.length; i++){
+            for (let i = 0; i < questions.length; i++) {
                 const addQuestionRes = await db.surveys.addQuestion(survey_id, questions[i].question);
                 const question_id = addQuestionRes[0].question_id;
-    
-                for (let j = questions[i].options.length - 1; j >= 0; j--){
-                    if (questions[i].options[j] === "" ) questions[i].options.splice(j, 1)
+
+                for (let j = questions[i].options.length - 1; j >= 0; j--) {
+                    if (questions[i].options[j] === "") questions[i].options.splice(j, 1)
                 }
-    
-                for (let k = 0; k < questions[i].options.length; k++){
-                    await db.surveys.addOptions(question_id, questions[i].options[k]) 
+
+                for (let k = 0; k < questions[i].options.length; k++) {
+                    await db.surveys.addOptions(question_id, questions[i].options[k])
                 }
             }
         } catch (err) {
@@ -51,25 +51,25 @@ module.exports = {
             res.sendStatus(500)
         }
 
-
-
-
-        // const allSurveys = await db.surveys.getAll()
-
-
         res.sendStatus(200)
     },
 
     addCompletedSurvey: async (req, res) => {
-        console.log(req.body)
+        const { survey_id, radioAnswers } = req.body;
+        const { user_id } = req.session.user;
+        const db = req.app.get("db");
 
+        for (let i = 0; i < radioAnswers.length; i++) {
+            await db.surveys.addCompletedSurvey(user_id, survey_id, radioAnswers[i].question_id, radioAnswers[i].option_id)
+        }
 
+        res.sendStatus(200)
     },
 
     setInactive: async (req, res) => {
-        const {user_id} = req.session.user;
+        const { user_id } = req.session.user;
         const survey_id = +req.params.survey_id;
-        const db = req.app.get('db'); 
+        const db = req.app.get('db');
 
         const updatedSurveys = await db.surveys.setInactive(user_id, survey_id)
         res.status(200).json(updatedSurveys)

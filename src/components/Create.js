@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Create.css"
 import {connect} from "react-redux"
 import Axios from "axios"
-import {addSurvey} from "../redux/reducers/surveysReducer"
+import {addNewSurvey} from "../redux/reducers/surveysReducer"
 
 class Create extends Component {
     constructor() {
@@ -53,7 +53,7 @@ class Create extends Component {
         this.setState({ questions: newQuestions })
     }
     submitSurvey() {
-        this.props.addSurvey(this.state)
+        this.props.addNewSurvey(this.state)
             .then(() => {
                 this.setState({
                     title: "",
@@ -127,5 +127,5 @@ class Create extends Component {
 }
 
 export default connect(null, {
-    addSurvey
+    addNewSurvey
 })(Create)

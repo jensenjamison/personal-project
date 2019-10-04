@@ -12,6 +12,8 @@ const ADD_SURVEY = "ADD_SURVEY";
 const CLEAR_SURVEY_DATA = "CLEAR_SURVEY_DATA";
 const DELETE_SURVEY = "DELETE_SURVEY";
 const GET_ONE = "GET_ONE";
+const ADD_COMPLETED_SURVEY = "ADD_COMPLETED_SURVEY";
+
 
 export function updateAllSurveys() {
     return {
@@ -34,10 +36,10 @@ export function getOne(survey_id) {
     }
 }
 
-export function addSurvey(newSurvey) {
+export function addNewSurvey(newSurvey) {
     return {
         type: ADD_SURVEY,
-        payload: Axios.post("/api/survey", newSurvey)
+        payload: Axios.post("/api/survey/new", newSurvey)
     }
 }
 
@@ -51,6 +53,13 @@ export function deleteSurvey(survey_id) {
 export function clearSurveyData() {
     return {
         type: CLEAR_SURVEY_DATA
+    }
+}
+
+export function addCompletedSurvey(completedSurvey) {
+    return {
+        type: ADD_COMPLETED_SURVEY,
+        payload: Axios.post("/api/survey/completed", completedSurvey)
     }
 }
 
@@ -87,6 +96,11 @@ export default function reducer(state = initialState, action) {
             return {
                 allSurveys: [],
                 userSurveys: []
+            }
+        case `${ADD_COMPLETED_SURVEY}_FULFILLED`:
+            return {
+                ...state,
+                allSurveys: payload.data
             }
         default: return state;
 

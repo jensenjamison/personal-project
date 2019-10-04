@@ -23,7 +23,7 @@ module.exports = {
 
         res.status(200).json(getOneRes)
     },
-    addSurvey: async (req, res) => {
+    addNewSurvey: async (req, res) => {
         console.log(req.body)
 
         const {title, questions} = req.body;
@@ -59,6 +59,13 @@ module.exports = {
 
         res.sendStatus(200)
     },
+
+    addCompletedSurvey: async (req, res) => {
+        console.log(req.body)
+
+
+    },
+
     setInactive: async (req, res) => {
         const {user_id} = req.session.user;
         const survey_id = +req.params.survey_id;

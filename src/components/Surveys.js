@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {updateAllSurveys} from "../redux/reducers/surveysReducer"
 import {connect} from "react-redux"
 import {Link} from "react-router-dom"
+import"./Surveys.css"
 
 class Surveys extends Component{
     constructor(){
@@ -34,7 +35,7 @@ class Surveys extends Component{
         })
 
         return(
-            <div>
+            <div className="surveys-page">
                 <h1>All Surveys</h1>
                 {allSurveysMapped}
             </div>

@@ -20,6 +20,36 @@ nav button {
 .nav-right {
     display: flex;
     justify-content: space-between;
-    width: 25vw;
+    width: 40vw;
     height: auto;
+}
+
+.burger-button {
+    display: none;
+}
+
+.side-menu {
+    background-color: rgb(48, 48, 48);
+    color: white;
+    height: 270px;
+    width: 184px;
+}
+
+.drop-down {
+    display: flex;
+    justify-content: flex-end; 
+}
+
+.burger-button-1 {
+    width: 70px;
+    height: 70px;
+  }
+
+@media (max-width: 842px ) {
+    .nav-buttons-1 {
+        display: none;
+    }
+    .burger-button {
+        display: block;
+    }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateUserSurveys, deleteSurvey } from "../redux/reducers/surveysReducer"
-
+import "./Home.css"
 
 class Home extends Component {
     constructor() {
@@ -27,7 +27,7 @@ class Home extends Component {
         })
 
         return (
-            <div>
+            <div className="home-page">
                 <h1>My Surveys</h1>
                 {userSurveysMapped}
             </div>

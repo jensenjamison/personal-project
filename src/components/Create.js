@@ -4,6 +4,7 @@ import {connect} from "react-redux"
 import Axios from "axios"
 import {addNewSurvey} from "../redux/reducers/surveysReducer"
 
+
 class Create extends Component {
     constructor() {
         super();
@@ -80,7 +81,6 @@ class Create extends Component {
                         return (
                             <div>
                                 <form onSubmit={this.handleSubmit}>
-                                    <h1>Question Component</h1>
                                     <input
                                         placeholder="Question Here"
                                         name="question"

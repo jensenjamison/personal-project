@@ -1,0 +1,18 @@
+
+.register-page {
+    width: 100vw;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.register-form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 220px;
+    width: 200px;
+    background-color: rgb(255, 222, 74);
+    border-radius: 20px;
+}

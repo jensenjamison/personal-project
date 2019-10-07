@@ -1,6 +1,7 @@
 import React from "react"
 import {connect} from "react-redux";
 import {registerUser, editUser} from "../redux/reducers/userReducer"
+import "./RegisterEdit.css"
 
 class RegisterEdit extends React.Component {
     constructor(){
@@ -42,9 +43,9 @@ class RegisterEdit extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className="register-page">
                 <h2>Register</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className="register-form">
                     <label>First Name</label>
                     <input 
                         type="text"

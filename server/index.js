@@ -4,8 +4,10 @@ const app = express();
 const massive = require('massive');
 const authController = require ("./controllers/authController")
 const surveysController = require ("./controllers/surveysController")
-const {CONNECTION_STRING, SESSION_SECRET} = process.env;
 const session = require("express-session");
+const nodemailer = require("nodemailer");
+
+const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING, EMAIL_NAME, EMAIL_PW} = process.env;
 
 app.use(express.json());
 
@@ -23,6 +25,22 @@ massive(CONNECTION_STRING).then(db => {
     app.set('db', db);
     console.log("db connected")
 })
+
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth:{
+        user: EMAIL_NAME,
+        pass: EMAIL_PW
+    }
+});
+ 
+ transporter.verify((error, success) => {
+    if (error) {
+       console.log(error);
+    } else {
+       console.log('Server listening for messages', success);
+    };
+  })
 
 
 // auth endpoints
@@ -42,6 +60,6 @@ app.delete("/api/survey/:survey_id", surveysController.setInactive);  //param
 
 
 
-app.listen(5050, () => {
-    console.log("listening on port 5050")
+app.listen(SERVER_PORT, () => {
+    console.log(`listening on port ${SERVER_PORT}`)
 })

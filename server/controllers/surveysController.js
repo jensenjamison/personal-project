@@ -55,14 +55,36 @@ module.exports = {
     },
 
     addCompletedSurvey: async (req, res) => {
+        console.log(req.body)
+
         const { survey_id, radioAnswers } = req.body;
         const { user_id } = req.session.user;
         const db = req.app.get("db");
+        
+        let surveyInfoToStrings = {
+            survey_name: '',
+            survey_answers: []
+        };
+
+        const getCompletedSurveyTitleRes = await db.surveys.getCompletedSurveyTitle(survey_id);
+        surveyInfoToStrings.survey_name = getCompletedSurveyTitleRes[0].survey_name;
 
         for (let i = 0; i < radioAnswers.length; i++) {
-            await db.surveys.addCompletedSurvey(user_id, survey_id, radioAnswers[i].question_id, radioAnswers[i].option_id)
+            const addCompletedSurveyRes = await db.surveys.addCompletedSurvey(user_id, survey_id, radioAnswers[i].question_id, radioAnswers[i].option_id)
+            console.log(addCompletedSurveyRes)
+
+            const getCompletedSurveyQuestionRes = await db.surveys.getCompletedSurveyQuestion(addCompletedSurveyRes[0].question_id)
+            const getCompletedSurveyAnswerRes = await db.surveys.getCompletedSurveyAnswer(addCompletedSurveyRes[0].option_id)
+
+            surveyInfoToStrings.survey_answers.push({question: getCompletedSurveyQuestionRes[0].question, answer: getCompletedSurveyAnswerRes[0].option})
         }
 
+
+
+        console.log(surveyInfoToStrings)
+
+
+        
         res.sendStatus(200)
     },
 

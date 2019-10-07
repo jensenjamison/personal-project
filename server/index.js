@@ -56,7 +56,7 @@ app.get("/api/survey/getAll/user", surveysController.getUserSurveys);
 app.get("/api/survey/getOne/:survey_id", surveysController.getOne); //param
 app.post("/api/survey/new", surveysController.addNewSurvey);   //body
 app.post("/api/survey/completed", surveysController.addCompletedSurvey);   //body
-app.delete("/api/survey/:survey_id", surveysController.setInactive);  //param
+app.delete("/api/survey/:survey_id", surveysController.deleteSurvey);  //param
 
 
 

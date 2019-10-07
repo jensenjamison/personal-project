@@ -76,6 +76,7 @@ class Survey extends Component {
 
     handleSubmit(){
         this.props.addCompletedSurvey(this.state)
+            .then(() => this.props.history.push("/surveys"))
     }
 
     render() {

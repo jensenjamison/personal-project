@@ -18,8 +18,8 @@ class Surveys extends Component{
 
         const {allSurveys} = this.props;
 
-        const allSurveysMapped = allSurveys.map((survey, index) => {
-            console.log(survey)
+        const allSurveysMapped = allSurveys.length > 0 ? allSurveys.map((survey, index) => {
+
             return (
                 <div key={index}>
                     <Link to={{
@@ -32,7 +32,7 @@ class Surveys extends Component{
                     </Link>
                 </div>
             )
-        })
+        }) : "Loading..."
 
         return(
             <div className="surveys-page">

@@ -56,7 +56,8 @@ module.exports = {
             res.sendStatus(500)
         }
 
-        res.sendStatus(200)
+        const surveys = await db.surveys.getAll()
+        res.status(200).json(surveys)
     },
 
     addCompletedSurvey: async (req, res) => {
@@ -79,17 +80,12 @@ module.exports = {
 
         for (let i = 0; i < radioAnswers.length; i++) {
             const addCompletedSurveyRes = await db.surveys.addCompletedSurvey(user_id, survey_id, radioAnswers[i].question_id, radioAnswers[i].option_id)
-            console.log(addCompletedSurveyRes)
 
             const getCompletedSurveyQuestionRes = await db.surveys.getCompletedSurveyQuestion(addCompletedSurveyRes[0].question_id)
             const getCompletedSurveyAnswerRes = await db.surveys.getCompletedSurveyAnswer(addCompletedSurveyRes[0].option_id)
 
             surveyInfoToStrings.survey_answers.push({question: getCompletedSurveyQuestionRes[0].question, answer: getCompletedSurveyAnswerRes[0].option})
         }
-
-
-
-        console.log(surveyInfoToStrings)
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -119,15 +115,16 @@ module.exports = {
             })
 
 
-        res.sendStatus(200)
+        const surveys = await db.surveys.getAll()
+        res.status(200).json(surveys)
     },
 
-    setInactive: async (req, res) => {
+    deleteSurvey: async (req, res) => {
         const { user_id } = req.session.user;
         const survey_id = +req.params.survey_id;
         const db = req.app.get('db');
 
-        const updatedSurveys = await db.surveys.setInactive(user_id, survey_id)
+        const updatedSurveys = await db.surveys.deleteSurvey(survey_id, user_id)
         res.status(200).json(updatedSurveys)
     }
 }

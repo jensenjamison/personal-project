@@ -19,20 +19,31 @@ nav button {
 
 .nav-right {
     display: flex;
-    justify-content: space-between;
     width: 40vw;
     height: auto;
+    justify-content: flex-end;
+}
+
+.nav-login {
+    display: flex;
+    justify-content: space-between;
+    width: 46%;
 }
 
 .burger-button {
     display: none;
 }
 
-.side-menu {
+.side-menu, .side-menu-close {
+    display: none;
+}
+
+.side-menu-open {
     background-color: rgb(48, 48, 48);
     color: white;
     height: 270px;
-    width: 184px;
+    width: 200px;
+    position: absolute;
 }
 
 .drop-down {
@@ -45,7 +56,13 @@ nav button {
     height: 70px;
   }
 
-@media (max-width: 842px ) {
+.nav-buttons-1 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+@media (max-width: 900px ) {
     .nav-buttons-1 {
         display: none;
     }

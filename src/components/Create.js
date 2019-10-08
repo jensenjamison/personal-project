@@ -75,12 +75,13 @@ class Create extends Component {
                     value={this.state.title}
                     onChange={this.handleUpdateSurveyTitle}
                 />
+                <div className="create-inputs">
 
                 {
                     this.state.questions.map((question, index) => {
                         return (
                             <div>
-                                <form onSubmit={this.handleSubmit}>
+                                <form onSubmit={this.handleSubmit} className="create-form">
                                     <input
                                         placeholder="Question Here"
                                         name="question"
@@ -118,6 +119,7 @@ class Create extends Component {
                         )
                     })
                 }
+                </div>
 
                 <button onClick={this.addQuestion}>Add Another Question</button>
                 <button onClick={this.submitSurvey}>Submit Survey</button>

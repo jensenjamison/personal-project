@@ -8,8 +8,8 @@ class LoginUser extends React.Component {
     constructor() {
         super()
         this.state = {
-            email: "jamisonjensen1999@gmail.com",
-            password: "123"
+            email: "",
+            password: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { updateUserSurveys, deleteSurvey } from "../redux/reducers/surveysReducer"
 import "./Home.css"
+import {Redirect} from "react-router-dom";
 
 class Home extends Component {
     constructor() {
@@ -15,9 +16,13 @@ class Home extends Component {
         this.props.updateUserSurveys();
     }
     render() {
+        if (!this.props.first_name) {
+            return <Redirect to="/login" />
+        }
+
         const { userSurveys } = this.props;
 
-        const userSurveysMapped = userSurveys.map((survey, index) => {
+        const userSurveysMapped = userSurveys.length < 1 ? "No surveys found." : userSurveys.map((survey, index) => {
             return (
                 <div key={index}>
                     <h2>{survey.survey_name}</h2>
@@ -38,7 +43,8 @@ class Home extends Component {
 
 const mapStateToProps = reduxState => {
     return {
-        userSurveys: reduxState.surveys.userSurveys
+        userSurveys: reduxState.surveys.userSurveys,
+        first_name: reduxState.user.first_name
     }
 }
 
